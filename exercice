@@ -1,0 +1,52 @@
+document.addEventListener("keydown", function (e) {
+  console.log(e.code);
+
+  if (imageManager.hasOwnProperty(e.code)) {
+    imageManager.execute(e.code);
+  }
+});
+
+let imageManager = {
+  image: document.querySelector(".twitter-picture"),
+
+  ArrowUp: function () {
+    this.image.style.top = this.image.offsetTop - 10 + "px";
+  },
+  ArrowLeft: function () {
+    this.image.style.left = this.image.offsetLeft - 10 + "px";
+  },
+  ArrowRight: function () {
+    this.image.style.left = this.image.offsetLeft + 10 + "px";
+  },
+  ArrowDown: function () {
+    this.image.style.top = this.image.offsetTop + 10 + "px";
+  },
+};
+
+imageManager.execute = function (key) {
+  let methodName = imageManager[key];
+  return methodName.apply(imageManager);
+};
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+setInterval(function () {
+  let randomNumber = getRandomInt(4);
+  switch (randomNumber) {
+    case 0:
+      imageManager.ArrowUp();
+      break;
+    case 1:
+      imageManager.ArrowLeft();
+      break;
+    case 2:
+      imageManager.ArrowRight();
+      break;
+    case 3:
+      imageManager.ArrowDown();
+      break;
+  }
+
+}, 500);
